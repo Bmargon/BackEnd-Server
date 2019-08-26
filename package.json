@@ -1,0 +1,16 @@
+{
+    "name": "back-end-server",
+    "version": "1.0.0",
+    "description": "Servidor backend mongo ",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Bruno Martínez González",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1",
+        "mongoose": "^5.6.11"
+    }
+}
