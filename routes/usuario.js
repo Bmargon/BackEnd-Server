@@ -11,22 +11,33 @@ var Usuario = require('../models/usuario');
 //
 app.get('/', (req, res, next) => {
 
-    Usuario.find({}, 'nombre email img role password').exec(
+    var desde = req.query.desde || 0;
+    desde = Number(desde);
 
-        (err, usuarios) => {
-            if (err) {
-                return res.status(500).json({
-                    ok: false,
-                    mensaje: 'Error en carga de usuarios',
-                    errors: err
+    Usuario.find({}, 'nombre email img role password')
+        .skip(desde)
+        .limit(5)
+        .exec(
+
+            (err, usuarios) => {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error en carga de usuarios',
+                        errors: err
+                    });
+                }
+                Usuario.count({}, (err, conteo) => {
+                    res.status(200).json({
+                        ok: true,
+                        usuarios: usuarios,
+                        total: conteo
+
+                    });
                 });
+
             }
-            res.status(200).json({
-                ok: true,
-                usuarios: usuarios
-            });
-        }
-    );
+        );
 });
 
 //
